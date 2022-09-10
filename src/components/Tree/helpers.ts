@@ -74,8 +74,8 @@ export const updateNodesStatuses = (
   }
 
   // Activate children recursive
-  const activateChildren = (node) => {
-    for (let child of node.childNodes) {
+  const activateChildren = (node: NodeModel) => {
+    for (let child of node.children) {
       child.active = true
       activateChildren(child)
     }
