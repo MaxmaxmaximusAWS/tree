@@ -39,8 +39,9 @@ export const normalizeNodes = (nodes: NodeDto[]): NodeModel[] => {
   // Connecting children and parents
   for (let id in nodeModelsMapById) {
     const nodeModel = nodeModelsMapById[id]
-    if (nodeModel.parentId === null) continue
-
+    if (nodeModel.parentId === null) {
+      continue
+    }
     const nodeModelParent = nodeModelsMapById[nodeModel.parentId]
     nodeModelParent.children.push(nodeModel)
     nodeModel.parent = nodeModelParent
