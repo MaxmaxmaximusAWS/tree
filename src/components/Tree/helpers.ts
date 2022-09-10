@@ -6,7 +6,7 @@ export interface NodeModel {
   y: number
   parentId: number | null
   parent: NodeModel | null
-  childNodes: NodeModel[]
+  children: NodeModel[]
   active: boolean
   activeEdge: boolean
 }
@@ -26,7 +26,7 @@ export const normalizeNodes = (nodes: NodeDto[]): NodeModel[] => {
       id: node.id,
       x: node.x,
       y: node.y,
-      childNodes: [],
+      children: [],
       parent: null,
       active: false,
       activeEdge: false,
@@ -39,12 +39,11 @@ export const normalizeNodes = (nodes: NodeDto[]): NodeModel[] => {
   // Connecting children and parents
   for (let id in nodeModelsMapById) {
     const nodeModel = nodeModelsMapById[id]
+    if (nodeModel.parentId === null) continue
 
-    if (nodeModel.parentId !== null) {
-      const nodeModelParent = nodeModelsMapById[nodeModel.parentId]
-      nodeModelParent.childNodes.push(nodeModel)
-      nodeModel.parent = nodeModelParent
-    }
+    const nodeModelParent = nodeModelsMapById[nodeModel.parentId]
+    nodeModelParent.children.push(nodeModel)
+    nodeModel.parent = nodeModelParent
   }
 
   return normalizedNodes
