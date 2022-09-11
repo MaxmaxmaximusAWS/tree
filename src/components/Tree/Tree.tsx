@@ -28,10 +28,10 @@ export const Tree = ({ nodes: rawNodes }: TreeProps) => {
           node.parent && (
             <line
               key={node.id}
-              x1={node.parent.x}
-              y1={node.parent.y}
-              x2={node.x}
-              y2={node.y}
+              x1={node.x}
+              y1={node.y}
+              x2={node.parent.x}
+              y2={node.parent.y}
               strokeWidth="1"
               stroke={node.activeEdge ? 'rgb(0,31,249)' : 'rgb(0,0,0)'}
             />
