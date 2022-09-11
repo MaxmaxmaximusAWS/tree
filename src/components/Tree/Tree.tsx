@@ -11,7 +11,7 @@ export const Tree = ({ nodes: rawNodes }: TreeProps) => {
   const normalizedNodes = useMemo(() => normalizeNodes(rawNodes), [rawNodes])
   const [activeNode, setActiveNode] = useState<Node>()
 
-  // We should update node statuses when activeNode changes
+  // We should update nodes statuses when activeNode changes
   const nodes = useMemo(
     () => updateNodesStatuses(normalizedNodes, activeNode),
     [normalizedNodes, activeNode]
