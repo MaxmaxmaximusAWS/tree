@@ -8,22 +8,19 @@ export interface TreeProps {
 
 export const Tree = ({ nodes: rawNodes }: TreeProps) => {
   // We create optimized node models for convenient work with data
-  const nodes = useMemo(() => normalizeNodes(rawNodes), [rawNodes])
+  const normalizedNodes = useMemo(() => normalizeNodes(rawNodes), [rawNodes])
   const [activeNode, setActiveNode] = useState<Node>()
 
-  const nodesWithStatuses = useMemo(
-    () => updateNodesStatuses(nodes, activeNode),
-    [nodes, activeNode]
+  // We should update node statuses when activeNode changes
+  const nodes = useMemo(
+    () => updateNodesStatuses(normalizedNodes, activeNode),
+    [normalizedNodes, activeNode]
   )
-
-  const onNodeClick = (node) => {
-    setActiveNode(node)
-  }
 
   return (
     <svg width={400} height={400} viewBox={'50 -40 100 100'}>
       {/* Edges */}
-      {nodesWithStatuses.map(
+      {nodes.map(
         (node) =>
           node.parent && (
             <line
@@ -39,13 +36,13 @@ export const Tree = ({ nodes: rawNodes }: TreeProps) => {
       )}
 
       {/* Nodes */}
-      {nodesWithStatuses.map((node) => (
+      {nodes.map((node) => (
         <circle
           key={node.id}
           cx={node.x}
           cy={node.y}
           fill={node.active ? 'rgb(229,29,29)' : 'rgb(234,234,234)'}
-          onClick={() => onNodeClick(node)}
+          onClick={() => setActiveNode(node)}
           stroke="rgb(0,0,0)"
           strokeWidth="0.5"
           cursor="pointer"
