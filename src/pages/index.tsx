@@ -1,5 +1,5 @@
-import { Tree } from '@components'
-import { NODES_FROM_API } from '@mock/api'
+import { Tree } from '@/components'
+import { NODES_FROM_API } from '@/mock'
 
 export default function HomePage() {
   return (

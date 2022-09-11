@@ -1,5 +1,5 @@
 import 'the-new-css-reset'
-import '@styles/global.scss'
+import '@/styles/global.scss'
 import Head from 'next/head'
 import type { AppProps } from 'next/app'
 

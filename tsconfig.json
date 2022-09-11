@@ -21,30 +21,9 @@
 		"incremental": true,
 		"baseUrl": ".",
 		"paths": {
-			"@components": [
-				"./src/components"
-			],
-			"@components/*": [
-				"./src/components/*"
-			],
-			"@styles": [
-				"./src/styles"
-			],
-			"@styles/*": [
-				"./src/styles/*"
-			],
-			"@types": [
-				"./src/types"
-			],
-			"@types/*": [
-				"./src/types/*"
-			],
-			"@mock": [
-				"./src/mock"
-			],
-			"@mock/*": [
-				"./src/mock/*"
-			],
+			"@/*": [
+				"./src/*"
+			]
 		}
 	},
 	"include": [

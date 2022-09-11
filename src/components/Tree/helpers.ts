@@ -1,4 +1,4 @@
-import { NodeDto } from '@types'
+import { NodeDto } from '@/types'
 
 export interface Node {
   id: number

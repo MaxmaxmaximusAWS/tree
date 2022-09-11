@@ -1,4 +1,4 @@
-import { NodeDto } from '@types'
+import { NodeDto } from '@/types'
 
 export const NODES_FROM_API: NodeDto[] = [
   { id: 1, x: 100, y: 0, parent_id: null },

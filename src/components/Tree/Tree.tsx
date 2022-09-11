@@ -1,6 +1,6 @@
 import { Node, normalizeNodes, updateNodesStatuses } from './helpers'
 import React, { useMemo, useState } from 'react'
-import type { NodeDto } from '@types'
+import type { NodeDto } from '@/types'
 
 export interface TreeProps {
   nodes: NodeDto[]
