@@ -10,9 +10,11 @@ export const Tree = ({ nodes: rawNodes }: TreeProps) => {
   // We create optimized node models for convenient work with data
   const nodes = useMemo(() => normalizeNodes(rawNodes), [rawNodes])
   const [activeNode, setActiveNode] = useState<Node>()
-  const nodesWithStatuses = useMemo<Node[]>(() => {
-    return [...updateNodesStatuses(nodes, activeNode)]
-  }, [nodes, activeNode])
+
+  const nodesWithStatuses = useMemo(
+    () => updateNodesStatuses(nodes, activeNode),
+    [nodes, activeNode]
+  )
 
   const onNodeClick = (node) => {
     setActiveNode(node)

@@ -57,7 +57,7 @@ export const updateNodesStatuses = (
     node.activeEdge = false
   }
 
-  if (!activeNode) return nodes
+  if (!activeNode) return [...nodes]
 
   // Activate edges by parents chain
   let current = activeNode
@@ -76,5 +76,5 @@ export const updateNodesStatuses = (
 
   activateWithChildren(activeNode)
 
-  return nodes
+  return [...nodes]
 }
