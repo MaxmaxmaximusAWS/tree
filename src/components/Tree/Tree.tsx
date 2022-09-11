@@ -47,9 +47,9 @@ export const Tree = ({ nodes: rawNodes }: TreeProps) => {
           fill={node.active ? 'rgb(229,29,29)' : 'rgb(234,234,234)'}
           onClick={() => onNodeClick(node)}
           r="3.5"
+          cursor="pointer"
           strokeWidth="0.5"
           stroke="rgb(0,0,0)"
-          cursor={'pointer'}
         />
       ))}
     </svg>
