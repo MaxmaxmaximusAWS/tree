@@ -7,11 +7,11 @@ export interface TreeProps {
 }
 
 export const Tree = ({ nodes: rawNodes }: TreeProps) => {
-  // We create optimized node models for convenient work with data
+  // We create optimized nodes with pre-calculated parents and children
   const normalizedNodes = useMemo(() => normalizeNodes(rawNodes), [rawNodes])
   const [activeNode, setActiveNode] = useState<Node>()
 
-  // We should update nodes statuses when activeNode changes
+  // We should update node statuses when 'activeNode' will change
   const nodes = useMemo(
     () => updateNodesStatuses(normalizedNodes, activeNode),
     [normalizedNodes, activeNode]
