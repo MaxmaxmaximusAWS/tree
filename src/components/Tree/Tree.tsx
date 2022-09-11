@@ -17,6 +17,10 @@ export const Tree = ({ nodes: rawNodes }: TreeProps) => {
     [normalizedNodes, activeNode]
   )
 
+  const onCircleClick = (node) => {
+    setActiveNode(node)
+  }
+
   return (
     <svg width={400} height={400} viewBox={'50 -40 100 100'}>
       {/* Edges */}
@@ -42,7 +46,7 @@ export const Tree = ({ nodes: rawNodes }: TreeProps) => {
           cx={node.x}
           cy={node.y}
           fill={node.active ? 'rgb(229,29,29)' : 'rgb(234,234,234)'}
-          onClick={() => setActiveNode(node)}
+          onClick={() => onCircleClick(node)}
           stroke="rgb(0,0,0)"
           strokeWidth="0.5"
           cursor="pointer"
