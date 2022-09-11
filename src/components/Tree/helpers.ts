@@ -36,7 +36,7 @@ export const normalizeNodes = (rawNodes: NodeDto[]): Node[] => {
     nodes.push(node)
   }
 
-  // Connect children with parents
+  // Add children to parents
   for (let node of nodes) {
     if (node.parentId === null) continue
     const parent = nodesById[node.parentId]
