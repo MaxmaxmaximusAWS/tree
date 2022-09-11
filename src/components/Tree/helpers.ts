@@ -40,8 +40,8 @@ export const normalizeNodes = (rawNodes: NodeDto[]): Node[] => {
   for (let node of nodes) {
     if (node.parentId === null) continue
     const parent = nodesById[node.parentId]
-    node.parent = parent
     parent.children.push(node)
+    node.parent = parent
   }
 
   return nodes
