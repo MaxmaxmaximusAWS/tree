@@ -11,13 +11,13 @@ export interface Node {
   activeEdge: boolean
 }
 
-interface NodesMapById {
+interface NodesById {
   [id: number]: Node
 }
 
 export const normalizeNodes = (rawNodes: NodeDto[]): Node[] => {
   // We use just empty object instead of "new Map" for performance
-  const nodesMapById: NodesMapById = Object.create(null)
+  const nodesById: NodesById = Object.create(null)
   const nodes: Node[] = []
 
   // Create normalized nodes
@@ -32,14 +32,14 @@ export const normalizeNodes = (rawNodes: NodeDto[]): Node[] => {
       activeEdge: false,
       parentId: rawNode.parent_id,
     }
-    nodesMapById[node.id] = node
+    nodesById[node.id] = node
     nodes.push(node)
   }
 
   // Connect children with parents
   for (let node of nodes) {
     if (node.parentId === null) continue
-    const parent = nodesMapById[node.parentId]
+    const parent = nodesById[node.parentId]
     node.parent = parent
     parent.children.push(node)
   }
