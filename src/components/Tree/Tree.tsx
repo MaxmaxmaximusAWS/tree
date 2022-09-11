@@ -32,8 +32,8 @@ export const Tree = ({ nodes: rawNodes }: TreeProps) => {
               y1={node.y}
               x2={node.parent.x}
               y2={node.parent.y}
-              strokeWidth="1"
               stroke={node.activeEdge ? 'rgb(0,31,249)' : 'rgb(0,0,0)'}
+              strokeWidth="1"
             />
           )
       )}
