@@ -26,14 +26,14 @@ export const normalizeNodes = (rawNodes: NodeDto[]): Node[] => {
       id: rawNode.id,
       x: rawNode.x,
       y: rawNode.y,
+      parentId: rawNode.parent_id,
       children: [],
       parent: null,
       active: false,
       activeEdge: false,
-      parentId: rawNode.parent_id,
     }
-    nodesById[node.id] = node
     nodes.push(node)
+    nodesById[node.id] = node
   }
 
   // Add children to parents
