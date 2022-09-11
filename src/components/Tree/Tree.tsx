@@ -1,4 +1,4 @@
-import { NodeModel, normalizeNodes, updateNodesStatuses } from './helpers'
+import { Node, normalizeNodes, updateNodesStatuses } from './helpers'
 import React, { useMemo, useState } from 'react'
 import type { NodeDto } from '@types'
 
@@ -9,9 +9,9 @@ export interface TreeProps {
 export const Tree = ({ nodes: rawNodes }: TreeProps) => {
   // We create optimized node models for convenient work with data
   const nodes = useMemo(() => normalizeNodes(rawNodes), [rawNodes])
-  const [activeNode, setActiveNode] = useState<NodeModel>()
+  const [activeNode, setActiveNode] = useState<Node>()
 
-  const nodesWithStatuses = useMemo<NodeModel[]>(() => {
+  const nodesWithStatuses = useMemo<Node[]>(() => {
     return [...updateNodesStatuses(nodes, activeNode)]
   }, [nodes, activeNode])
 

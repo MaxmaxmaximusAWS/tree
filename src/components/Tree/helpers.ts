@@ -1,88 +1,80 @@
 import { NodeDto } from '@types'
 
-export interface NodeModel {
+export interface Node {
   id: number
   x: number
   y: number
   parentId: number | null
-  parent: NodeModel | null
-  children: NodeModel[]
+  parent: Node | null
+  children: Node[]
   active: boolean
   activeEdge: boolean
 }
 
-interface NodeModelMapById {
-  [id: number]: NodeModel
+interface NodesMapById {
+  [id: number]: Node
 }
 
-export const normalizeNodes = (nodes: NodeDto[]): NodeModel[] => {
+export const normalizeNodes = (rawNodes: NodeDto[]): Node[] => {
   // We use just empty object instead of "new Map" for performance
-  const nodeModelsMapById: NodeModelMapById = Object.create(null)
-  const normalizedNodes: NodeModel[] = []
+  const nodesMapById: NodesMapById = Object.create(null)
+  const nodes: Node[] = []
 
   // Create normalized nodes
-  for (let node of nodes) {
-    const normalizedNode: NodeModel = {
-      id: node.id,
-      x: node.x,
-      y: node.y,
+  for (let rawNode of rawNodes) {
+    const node: Node = {
+      id: rawNode.id,
+      x: rawNode.x,
+      y: rawNode.y,
       children: [],
       parent: null,
       active: false,
       activeEdge: false,
-      parentId: node.parent_id,
+      parentId: rawNode.parent_id,
     }
-    nodeModelsMapById[normalizedNode.id] = normalizedNode
-    normalizedNodes.push(normalizedNode)
+    nodesMapById[node.id] = node
+    nodes.push(node)
   }
 
-  // Connecting children and parents
-  for (let id in nodeModelsMapById) {
-    const nodeModel = nodeModelsMapById[id]
-    if (nodeModel.parentId === null) {
-      continue
-    }
-    const nodeModelParent = nodeModelsMapById[nodeModel.parentId]
-    nodeModelParent.children.push(nodeModel)
-    nodeModel.parent = nodeModelParent
+  // Connect children with parents
+  for (let node of nodes) {
+    if (node.parentId === null) continue
+    const parent = nodesMapById[node.parentId]
+    node.parent = parent
+    parent.children.push(node)
   }
 
-  return normalizedNodes
+  return nodes
 }
 
 export const updateNodesStatuses = (
-  nodes: NodeModel[],
-  nodeToActivate?: NodeModel
-) => {
-  // Reset all nodes statuses
+  nodes: Node[],
+  activeNode?: Node
+): Node[] => {
+  // Reset all node statuses
   for (let node of nodes) {
     node.active = false
     node.activeEdge = false
   }
 
-  if (!nodeToActivate) {
-    return nodes
-  }
-
-  // Activate this node
-  nodeToActivate.active = true
+  if (!activeNode) return nodes
 
   // Activate edges by parents chain
-  let current = nodeToActivate
+  let current = activeNode
   while (current) {
     current.activeEdge = true
     current = current.parent!
   }
 
-  // Activate children recursive
-  const activateChildren = (node: NodeModel) => {
+  // Activate node with children recursive
+  const activateWithChildren = (node: Node) => {
+    node.active = true
     for (let child of node.children) {
-      child.active = true
-      activateChildren(child)
+      activateWithChildren(child)
     }
   }
 
-  activateChildren(nodeToActivate)
+  activateWithChildren(activeNode)
 
   return nodes
 }
