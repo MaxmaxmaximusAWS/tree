@@ -17,7 +17,7 @@ interface NodesById {
 
 export const normalizeNodes = (rawNodes: NodeDto[]): Node[] => {
   // We use just empty object instead of "new Map" for performance
-  const nodesById: NodesById = Object.create(null)
+  const nodesById: NodesById = {}
   const nodes: Node[] = []
 
   // Create normalized nodes
